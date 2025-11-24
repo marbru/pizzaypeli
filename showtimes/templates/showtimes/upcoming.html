@@ -28,10 +28,10 @@
                     {% csrf_token %}
                     <button type="submit" class="vote-button">Vote</button>
                 </form>
-                <form method="post" action="{% url 'mark_as_shown' movie.id %}" class="date-picker-inline">
+                <form method="post" action="{% url 'mark_as_shown' movie.id %}" class="mark-shown-form" id="mark-shown-form-{{ movie.id }}">
                     {% csrf_token %}
-                    <input type="date" name="showed_date" required>
-                    <button type="submit" class="mark-shown-button">Mark as Shown</button>
+                    <input type="date" name="showed_date" class="date-picker-hidden" id="date-picker-{{ movie.id }}" required>
+                    <button type="button" class="mark-shown-button" onclick="showDatePicker({{ movie.id }})">Mark as Shown</button>
                 </form>
             </div>
         </div>
@@ -42,4 +42,24 @@
         </div>
     {% endif %}
 </div>
+
+<script>
+function showDatePicker(movieId) {
+    const datePicker = document.getElementById('date-picker-' + movieId);
+    const form = document.getElementById('mark-shown-form-' + movieId);
+
+    // Show and focus the date picker
+    datePicker.classList.remove('date-picker-hidden');
+    datePicker.classList.add('date-picker-visible');
+    datePicker.focus();
+    datePicker.click();
+
+    // Submit form when date is selected
+    datePicker.addEventListener('change', function() {
+        if (this.value) {
+            form.submit();
+        }
+    }, { once: true });
+}
+</script>
 {% endblock %}

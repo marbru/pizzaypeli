@@ -10,8 +10,10 @@
 
   Since we now have two pages, "upcoming" and "previously shown", we should add a header to the page with navigation links to access them.
 
-  ![1](claude_log/1.png)
+  ![2](claude_log/2.png)
 
   3. Can we extract the css on a static file? 
 
-  
+  4. UI is currently very bloated. I'd like to remove the date picker and show it as a hover when you click "mark as shown". And when you pick the date, then the form is submitted
+
+    ![4](claude_log/4.png)
