@@ -1,0 +1,24 @@
+{% extends 'showtimes/base.html' %}
+
+{% block title %}Previously Shown - Cinema Showtimes{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Previously Shown Movies</h2>
+    {% if movies %}
+        {% for movie in movies %}
+        <div class="movie-item">
+            <div class="movie-info">
+                <span class="movie-title">{{ movie.title }}</span>
+                <span class="movie-meta">Shown on {{ movie.showed_at|date:"F j, Y" }}</span>
+                <span class="movie-meta">{{ movie.vote_count }} vote{{ movie.vote_count|pluralize }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            No movies have been shown yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

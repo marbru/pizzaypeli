@@ -1,0 +1,45 @@
+{% extends 'showtimes/base.html' %}
+
+{% block title %}Upcoming Movies - Cinema Showtimes{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Propose a New Movie</h2>
+    <form method="post" action="{% url 'add_movie' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" name="title" placeholder="Enter movie title..." required>
+            <button type="submit">Add Movie</button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Upcoming Movies</h2>
+    {% if movies %}
+        {% for movie in movies %}
+        <div class="movie-item">
+            <div class="movie-info">
+                <span class="movie-title">{{ movie.title }}</span>
+                <span class="movie-meta">{{ movie.vote_count }} vote{{ movie.vote_count|pluralize }}</span>
+            </div>
+            <div class="movie-actions">
+                <form method="post" action="{% url 'vote_movie' movie.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="vote-button">Vote</button>
+                </form>
+                <form method="post" action="{% url 'mark_as_shown' movie.id %}" class="date-picker-inline">
+                    {% csrf_token %}
+                    <input type="date" name="showed_date" required>
+                    <button type="submit" class="mark-shown-button">Mark as Shown</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            No movies proposed yet. Be the first to add one!
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
