@@ -17,3 +17,8 @@
   4. UI is currently very bloated. I'd like to remove the date picker and show it as a hover when you click "mark as shown". And when you pick the date, then the form is submitted
 
     ![4](claude_log/4.png)
+
+  5. The problem is the datepicker stays shown if I don't pick a date and instead click on a 
+different "mark as seen" button. Then I get two datepickers. On a click outside of the 
+datepicker i'd like to hide the datepicker.
+

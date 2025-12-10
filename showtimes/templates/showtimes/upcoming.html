@@ -43,7 +43,20 @@
 </div>
 
 <script>
+    let activeDatePicker = null;
+
+    function hideAllDatePickers() {
+        document.querySelectorAll('.date-picker-visible').forEach(picker => {
+            picker.classList.remove('date-picker-visible');
+            picker.classList.add('date-picker-hidden');
+        });
+        activeDatePicker = null;
+    }
+
     function showDatePicker(movieId) {
+        // Hide any previously open date picker
+        hideAllDatePickers();
+
         const datePicker = document.getElementById('date-picker-' + movieId);
         const form = document.getElementById('mark-shown-form-' + movieId);
 
@@ -52,6 +65,7 @@
         datePicker.classList.add('date-picker-visible');
         datePicker.focus();
         datePicker.click();
+        activeDatePicker = datePicker;
 
         // Submit form when date is selected
         datePicker.addEventListener('change', function () {
@@ -60,5 +74,17 @@
             }
         }, { once: true });
     }
+
+    // Hide date picker when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!activeDatePicker) return;
+
+        const isDatePicker = event.target.classList.contains('date-picker-visible');
+        const isMarkShownButton = event.target.classList.contains('mark-shown-button');
+
+        if (!isDatePicker && !isMarkShownButton) {
+            hideAllDatePickers();
+        }
+    });
 </script>
 {% endblock %}

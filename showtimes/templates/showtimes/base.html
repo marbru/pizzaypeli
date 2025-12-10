@@ -1,20 +1,25 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Cartelera Pizza y Peli{% endblock %}</title>
+    <title>{% block title %}Pizza&Peli: movie session planner{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'showtimes/css/style.css' %}">
     {% block extra_styles %}{% endblock %}
 </head>
+
 <body>
     <header>
         <div class="header-content">
-            <h1>Cartelera Pizza y Peli</h1>
+            <h1>Pizza&Peli: movie session planner</h1>
             <nav>
-                <a href="{% url 'upcoming_movies' %}" class="{% if request.resolver_match.url_name == 'upcoming_movies' %}active{% endif %}">Upcoming</a>
-                <a href="{% url 'previously_shown' %}" class="{% if request.resolver_match.url_name == 'previously_shown' %}active{% endif %}">Previously shown</a>
+                <a href="{% url 'upcoming_movies' %}"
+                    class="{% if request.resolver_match.url_name == 'upcoming_movies' %}active{% endif %}">Upcoming</a>
+                <a href="{% url 'previously_shown' %}"
+                    class="{% if request.resolver_match.url_name == 'previously_shown' %}active{% endif %}">Previously
+                    shown</a>
             </nav>
         </div>
     </header>
@@ -31,4 +36,5 @@
         {% block content %}{% endblock %}
     </div>
 </body>
+
 </html>
