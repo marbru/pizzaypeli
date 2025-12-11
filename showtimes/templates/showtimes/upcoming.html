@@ -7,6 +7,7 @@
         {% csrf_token %}
         <div class="form-group">
             <input type="text" name="title" placeholder="Title..." required>
+
             <button type="submit">Add</button>
         </div>
     </form>
@@ -15,23 +16,30 @@
 <div class="card">
     {% if movies %}
     {% for movie in movies %}
-    <div class="movie-item">
-        <div class="movie-info">
-            <span class="movie-title">{{ movie.title }}</span>
-            <span class="movie-meta">{{ movie.vote_count }} vote{{ movie.vote_count|pluralize }}</span>
-        </div>
-        <div class="movie-actions">
-            <form method="post" action="{% url 'vote_movie' movie.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="vote-button">Vote</button>
-            </form>
-            <form method="post" action="{% url 'mark_as_shown' movie.id %}" class="mark-shown-form"
-                id="mark-shown-form-{{ movie.id }}">
-                {% csrf_token %}
-                <input type="date" name="showed_date" class="date-picker-hidden" id="date-picker-{{ movie.id }}"
-                    required>
-                <button type="button" class="mark-shown-button" onclick="showDatePicker({{ movie.id }})">Mark as seen</button>
-            </form>
+    <div class="movie-card">
+        <img src="{{ movie.cover_url }}" alt="{{ movie.title }}" class="movie-cover">
+        <div class="movie-details">
+            <div class="movie-header">
+                <span class="movie-title">{{ movie.title }}</span>
+                {% if movie.year %}<span class="movie-year">({{ movie.year }})</span>{% endif %}
+            </div>
+            <p class="movie-description">{{ movie.description }}</p>
+            <div class="movie-footer">
+                <span class="movie-meta">{{ movie.vote_count }} vote{{ movie.vote_count|pluralize }}</span>
+                <div class="movie-actions">
+                    <form method="post" action="{% url 'vote_movie' movie.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="vote-button">Vote</button>
+                    </form>
+                    <form method="post" action="{% url 'mark_as_shown' movie.id %}" class="mark-shown-form"
+                        id="mark-shown-form-{{ movie.id }}">
+                        {% csrf_token %}
+                        <input type="date" name="showed_date" class="date-picker-hidden" id="date-picker-{{ movie.id }}"
+                            required>
+                        <button type="button" class="mark-shown-button" onclick="showDatePicker({{ movie.id }})">Mark as seen</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}

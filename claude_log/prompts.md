@@ -16,9 +16,25 @@
 
   4. UI is currently very bloated. I'd like to remove the date picker and show it as a hover when you click "mark as shown". And when you pick the date, then the form is submitted
 
-    ![4](claude_log/4.png)
+    ![3](claude_log/3.png)
 
-  5. The problem is the datepicker stays shown if I don't pick a date and instead click on a 
-different "mark as seen" button. Then I get two datepickers. On a click outside of the 
-datepicker i'd like to hide the datepicker.
+  5. The problem is the datepicker stays shown if I don't pick a date and instead click on a different "mark as seen" button. Then I get two datepickers. On a click outside of the datepicker i'd like to hide the datepicker.
 
+6. add fields: "cover_url", "year" and "description" to the model ONLY (we'll update the UI later). They may be nullable
+
+changed my mind. Let's make those new fields not nullable, and tell me the commands to 
+reset the DB from scratch
+
+can we add default values? description="No description", 
+cover_url=/home/marbu/Downloads/no-cover.jpg (that's a local file, copy that into the 
+static files folder in the apropriate place), and year=0 
+
+![4](claude_log/4.png)
+
+Removed the new input form fields (I have other plans for that). The movie cards look really ugly. Lets make the cover images smaller, and show for each card the image on the left, and on the right the title, year, description and buttons 
+
+Now I'd like the buttons to align to the botton of the card
+
+Now I'd like the movie-details to have a bit more padding than the cover
+
+![5](claude_log/5.png)

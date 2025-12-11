@@ -5,10 +5,18 @@
     <h2>Previously shown movies</h2>
     {% if movies %}
     {% for movie in movies %}
-    <div class="movie-item">
-        <div class="movie-info">
-            <span class="movie-title">{{ movie.title }}</span>
-            <span class="movie-meta">{{ movie.showed_at|date:"F j, Y" }}</span>
+    <div class="movie-card">
+        <img src="{{ movie.cover_url }}" alt="{{ movie.title }}" class="movie-cover">
+        <div class="movie-details">
+            <div class="movie-header">
+                <span class="movie-title">{{ movie.title }}</span>
+                {% if movie.year %}<span class="movie-year">({{ movie.year }})</span>{% endif %}
+            </div>
+            <p class="movie-description">{{ movie.description }}</p>
+            <div class="movie-footer">
+                <span class="movie-meta">Shown on {{ movie.showed_at|date:"F j, Y" }}</span>
+                <span class="movie-meta">{{ movie.vote_count }} vote{{ movie.vote_count|pluralize }}</span>
+            </div>
         </div>
     </div>
     {% endfor %}
