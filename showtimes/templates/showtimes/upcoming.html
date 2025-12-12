@@ -3,14 +3,39 @@
 {% block content %}
 <div class="card">
     <h2>Add movie</h2>
-    <form method="post" action="{% url 'add_movie' %}">
+    <form method="post" action="{% url 'upcoming_movies' %}">
         {% csrf_token %}
         <div class="form-group">
-            <input type="text" name="title" placeholder="Title..." required>
-
-            <button type="submit">Add</button>
+            <input type="text" name="title" placeholder="Search for a movie..." value="{{ search_query }}" required>
+            <button type="submit" name="search">Search</button>
         </div>
     </form>
+
+    {% if search_results %}
+    <div class="search-results">
+        {% for movie in search_results %}
+        <div class="search-result">
+            <img src="{{ movie.cover_url }}" alt="{{ movie.title }}" class="search-result-cover">
+            <div class="search-result-info">
+                <span class="movie-title">{{ movie.title }}</span>
+                {% if movie.year %}<span class="movie-year">({{ movie.year }})</span>{% endif %}
+            </div>
+            <form method="post" action="{% url 'add_movie' %}">
+                {% csrf_token %}
+                <input type="hidden" name="title" value="{{ movie.title }}">
+                <input type="hidden" name="year" value="{{ movie.year }}">
+                <input type="hidden" name="cover_url" value="{{ movie.cover_url }}">
+                <input type="hidden" name="description" value="{{ movie.description }}">
+                <button type="submit" class="add-button">Add</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif search_query %}
+    <div class="search-results">
+        <div class="empty-state">No movies found for "{{ search_query }}"</div>
+    </div>
+    {% endif %}
 </div>
 
 <div class="card">

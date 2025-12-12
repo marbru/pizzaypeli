@@ -264,3 +264,46 @@ button:hover {
         transform: scale(1);
     }
 }
+
+.search-results {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result-cover {
+    width: 40px;
+    height: 60px;
+    max-width: 40px;
+    max-height: 60px;
+    object-fit: cover;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.search-result-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.add-button {
+    background-color: #17a2b8;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.add-button:hover {
+    background-color: #138496;
+}
