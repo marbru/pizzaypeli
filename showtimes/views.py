@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from datetime import date
 from .models import Movie
-# from . import imdb
-from .metadata_fetcher import get_movie_info, search_movies as imdb_search
+from . import imdb
 
 
 def upcoming_movies(request):
@@ -14,7 +13,7 @@ def upcoming_movies(request):
     if request.method == 'POST' and 'search' in request.POST:
         search_query = request.POST.get('title', '').strip()
         if search_query:
-            search_results = imdb_search(search_query)
+            search_results = imdb.search_movies(search_query)
 
     return render(request, 'showtimes/upcoming.html', {
         'movies': movies,
@@ -31,7 +30,7 @@ def previously_shown(request):
 def add_movie(request):
     if request.method == 'POST':
         imdb_id = request.POST.get('imdb_id', '').strip()
-        movie_data = get_movie_info(imdb_id)
+        movie_data = imdb.get_movie_info(imdb_id)
         Movie.objects.create(**movie_data)
 
     return redirect('upcoming_movies')
