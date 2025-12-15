@@ -2,6 +2,8 @@
 
 A simple app to keep track of our home movie nights.
 
+<img src="claude_log/8.png" style="max-width:700px; width:100%;" />
+
 Made with Django, and mostly vibecoded with Claude and Cursor. I'm trying to keep a log of the prompts used at [claude_log/prompts.md](claude_log/prompts.md)
 
 Uses https://github.com/tveronesi/imdbinfo to fetch movie metadata (no API keys required)
