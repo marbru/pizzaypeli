@@ -1,6 +1,6 @@
 # Pizza y Peli
 
-A simple app to keep track of our home movie nights.
+A simple app to plan and keep track of our home cinema sessions.
 
 <img src="claude_log/8.png" style="max-width:700px; width:100%;" />
 
