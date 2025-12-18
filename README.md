@@ -10,9 +10,22 @@ Uses https://github.com/tveronesi/imdbinfo to fetch movie metadata from imdb (no
 
 ## Install
 
+Make and use a virtualenv for all commands:
+
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Thn install dependencies:
+
 ```pip install -r requirements.txt```
 
 ## Housekeeping
+
+Note: use the virtual env for all commands:
+
+`source .venv/bin/activate`
 
 Run the app:
 
