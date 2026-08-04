@@ -123,6 +123,48 @@ USE_TZ = True
 STATIC_URL = 'static/'  # URL pattern for static files eg, $BASEURL/static/showtimes/css/style.css
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # physical location of static files
 
+# Logging
+# https://docs.djangoproject.com/en/5.2/topics/logging/
+
+# Everything goes to stdout, so `docker compose logs -f web` shows it.
+# Django's built-in config only logs to the console when DEBUG is True, and
+# otherwise emails tracebacks to ADMINS (which we don't set) - meaning 500s in
+# production were swallowed silently. The config below always logs them.
+
+LOG_LEVEL = os.getenv('DJANGO_LOG_LEVEL', 'INFO').upper()
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} {levelname} {name}: {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    # Catches our own code (showtimes) plus third-party libs like imdbinfo,
+    # which logs the reason IMDb calls fail.
+    'root': {
+        'handlers': ['console'],
+        'level': LOG_LEVEL,
+    },
+    'loggers': {
+        # Unhandled exceptions in a view are logged here, with a full traceback.
+        'django': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+            'propagate': False,
+        },
+    },
+}
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

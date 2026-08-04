@@ -16,6 +16,10 @@ fi
 # fall back to whatever version is already installed.
 pip install -U imdbinfo || echo "Warning: could not update imdbinfo, continuing with installed version"
 
-# Run migrations and start server
+# Run migrations and start server.
+# The "-" log files mean stdout/stderr, so docker captures the access log too.
 python manage.py migrate
-exec gunicorn --bind 0.0.0.0:8000 pizzaypeli.wsgi:application
+exec gunicorn --bind 0.0.0.0:8000 \
+    --access-logfile - \
+    --error-logfile - \
+    pizzaypeli.wsgi:application

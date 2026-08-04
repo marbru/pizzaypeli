@@ -14,4 +14,6 @@ services:
       - CUSTOM_DOMAIN=${CUSTOM_DOMAIN:-}
       # Path to SQLite database file
       - DJANGO_DB_PATH=/app/data/db.sqlite3
+      # Log verbosity. DEBUG is handy when IMDb calls start failing.
+      - DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL:-INFO}
     restart: ${RESTART_POLICY:-no}
