@@ -20,8 +20,8 @@ def get_movie_info(imdb_id):
     movie = get_movie(imdb_id)
     return {
         'title': movie.title,
-        'year': movie.year,
-        'cover_url': movie.cover_url,
+        'year': movie.year or 0,
+        'cover_url': movie.cover_url or '/static/showtimes/images/no-cover.jpg',
         'imdb_id': movie.imdb_id,
-        'description': movie.plot
+        'description': movie.plot or 'No description',
     }

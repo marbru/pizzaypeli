@@ -16,7 +16,7 @@ def upcoming_movies(request):
         search_query = request.POST.get('title', '').strip()
         if search_query:
             search_results = imdb.search_movies(search_query)
-        for result_movie in search_results:
+        for result_movie in (search_results or []):
             # Not sure if this'll be a lot of DB calls 
             existing_movie = all_movies.filter(imdb_id=result_movie['imdb_id']).first()
             if existing_movie:
@@ -39,10 +39,12 @@ def previously_shown(request):
 def add_movie(request):
     if request.method == 'POST':
         imdb_id = request.POST.get('imdb_id', '').strip()
-        movie_data = imdb.get_movie_info(imdb_id)
-        movie = Movie.objects.create(**movie_data)
-        messages.success(request, f'Added "{movie.title}"')
-
+        try:
+            movie_data = imdb.get_movie_info(imdb_id)
+            movie = Movie.objects.create(**movie_data)
+            messages.success(request, f'Added "{movie.title}"')
+        except Exception:
+            messages.error(request, 'Could not add movie. Please try again later.')
 
     return redirect('upcoming_movies')
 
